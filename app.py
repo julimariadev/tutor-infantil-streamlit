@@ -7,281 +7,282 @@ st.set_page_config(
     layout="centered"
 )
 
-# =========================
+# =====================================
 # ESTILOS
-# =========================
+# =====================================
 st.markdown("""
 <style>
     .stApp {
-        background: linear-gradient(180deg, #0b1020 0%, #18213f 100%);
+        background: linear-gradient(180deg, #0b1020 0%, #17213f 100%);
     }
 
-    .titulo-principal {
+    .main-title {
         text-align: center;
-        color: white;
-        font-size: 2.4rem;
+        color: #ffffff;
+        font-size: 2.5rem;
         font-weight: 800;
-        margin-bottom: 0.3rem;
+        margin-bottom: 0.2rem;
     }
 
-    .subtitulo-principal {
+    .subtitle {
         text-align: center;
-        color: #dbe4ff;
+        color: #dce6ff;
         font-size: 1.05rem;
-        margin-bottom: 1.5rem;
+        margin-bottom: 1.4rem;
     }
 
-    .tarjeta {
-        background: white;
+    .info-chip {
+        background: rgba(255,255,255,0.10);
+        border: 1px solid rgba(255,255,255,0.08);
+        color: #ffffff;
+        padding: 12px 16px;
+        border-radius: 18px;
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+
+    .card {
+        background: #ffffff;
+        color: #1d2433 !important;
         border-radius: 24px;
-        padding: 22px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.18);
-        margin-top: 16px;
-        color: #222 !important;
+        padding: 24px;
+        margin-top: 18px;
+        box-shadow: 0 12px 32px rgba(0,0,0,0.22);
+        border: 2px solid #eef2ff;
     }
 
-    .tarjeta h3 {
-        color: #1f2a44 !important;
-        margin-top: 10px;
-        margin-bottom: 8px;
+    .card h3 {
+        color: #1c2740 !important;
+        margin-top: 18px;
+        margin-bottom: 10px;
         font-size: 1.25rem;
     }
 
-    .tarjeta p {
-        color: #333 !important;
+    .card p {
+        color: #2d3748 !important;
+        line-height: 1.75;
         font-size: 1rem;
-        line-height: 1.65;
-        margin-bottom: 10px;
+        margin-bottom: 8px;
     }
 
-    .mini-tarjeta {
-        background: rgba(255,255,255,0.1);
-        border: 1px solid rgba(255,255,255,0.08);
+    .reward-box {
+        background: linear-gradient(90deg, #ffd166, #ffb703);
+        color: #3a2a00;
+        padding: 14px 18px;
         border-radius: 18px;
-        padding: 14px 16px;
-        color: white;
-        margin-top: 8px;
+        text-align: center;
+        font-weight: 800;
+        margin-top: 14px;
     }
 
-    .mini-tarjeta strong {
-        color: #ffffff;
+    .footer-box {
+        text-align: center;
+        color: #dce6ff;
+        font-size: 0.95rem;
+        margin-top: 26px;
+        margin-bottom: 10px;
     }
 
     .stButton > button {
         width: 100%;
-        background: linear-gradient(90deg, #7b61ff, #5f8cff);
-        color: white;
         border: none;
         border-radius: 18px;
         padding: 0.85rem 1rem;
         font-size: 1rem;
         font-weight: 700;
+        color: #ffffff;
+        background: linear-gradient(90deg, #7b61ff, #4dabf7);
+        box-shadow: 0 8px 20px rgba(91, 140, 255, 0.35);
     }
 
     .stButton > button:hover {
-        transform: scale(1.01);
         filter: brightness(1.05);
-    }
-
-    .bloque-puntaje {
-        background: linear-gradient(90deg, #ff9f43, #ffcf5c);
-        border-radius: 20px;
-        padding: 16px;
-        text-align: center;
-        color: #3b2f00;
-        font-weight: 700;
-        margin-top: 16px;
-    }
-
-    .footer-bonito {
-        text-align: center;
-        color: #cfd8ff;
-        font-size: 0.95rem;
-        margin-top: 25px;
-        margin-bottom: 10px;
-    }
-
-    div[data-testid="stMetricValue"] {
-        color: white;
+        transform: scale(1.01);
     }
 
     div[data-testid="stMetricLabel"] {
-        color: #dbe4ff;
+        color: #dce6ff;
     }
 
+    div[data-testid="stMetricValue"] {
+        color: #ffffff;
+    }
+
+    /* Se adapta mejor al modo claro/oscuro porque forzamos colores
+       en los bloques internos importantes */
     @media (max-width: 640px) {
-        .titulo-principal {
+        .main-title {
             font-size: 2rem;
         }
 
-        .subtitulo-principal {
+        .subtitle {
             font-size: 0.98rem;
         }
 
-        .tarjeta {
+        .card {
             padding: 18px;
             border-radius: 18px;
         }
 
-        .tarjeta h3 {
+        .card h3 {
             font-size: 1.12rem;
         }
 
-        .tarjeta p {
+        .card p {
             font-size: 0.97rem;
         }
     }
 </style>
 """, unsafe_allow_html=True)
 
-# =========================
-# CONTENIDO EDUCATIVO
-# =========================
+# =====================================
+# BASE DE CONTENIDOS
+# =====================================
 contenidos = {
     "Matemáticas": {
         "sumas": {
-            "explicacion": "Sumar es juntar cantidades. Cuando unes dos grupos de cosas, estás sumando. Por ejemplo, si tienes 2 globos y te dan 3 más, ahora tienes 5 globos.",
-            "ejemplo": "2 + 3 = 5",
-            "dato_curioso": "Usamos las sumas todos los días, por ejemplo cuando contamos juguetes, frutas o lápices.",
-            "pregunta": "¿Cuánto es 4 + 2?",
-            "respuesta": "6"
+            "base": "La suma sirve para juntar cantidades. Cuando unes grupos de objetos, estás sumando.",
+            "ejemplo": "Si tienes 3 caramelos y te dan 2 más, ahora tienes 5 caramelos. 3 + 2 = 5.",
+            "curioso": "Usamos sumas al contar monedas, juguetes, frutas o puntos en un juego.",
+            "pregunta": "¿Cuánto es 6 + 2?",
+            "respuesta": "8"
         },
         "restas": {
-            "explicacion": "Restar es quitar una cantidad. Si tienes algo y una parte se va, entonces haces una resta. Sirve para saber cuánto queda.",
-            "ejemplo": "7 - 3 = 4",
-            "dato_curioso": "Cuando compartes dulces o pierdes una canica, también estás viendo una resta en acción.",
+            "base": "La resta sirve para quitar o comparar cantidades. Nos ayuda a saber cuánto queda o cuánto falta.",
+            "ejemplo": "Si tienes 8 galletas y comes 3, te quedan 5. 8 - 3 = 5.",
+            "curioso": "Restamos cuando compartimos dulces, perdemos una ficha o gastamos dinero.",
             "pregunta": "¿Cuánto es 9 - 4?",
             "respuesta": "5"
         },
         "multiplicación": {
-            "explicacion": "Multiplicar es sumar varias veces la misma cantidad. Si tienes 3 grupos de 2 manzanas, puedes sumar 2 + 2 + 2 o escribir 3 x 2.",
-            "ejemplo": "3 x 2 = 6",
-            "dato_curioso": "Las tablas de multiplicar ayudan a contar más rápido y a resolver problemas del día a día.",
-            "pregunta": "¿Cuánto es 2 x 5?",
-            "respuesta": "10"
+            "base": "Multiplicar es sumar varias veces la misma cantidad. Ayuda a contar más rápido cuando hay grupos iguales.",
+            "ejemplo": "Si hay 3 grupos de 4 pelotas, entonces 4 + 4 + 4 = 12, y también 3 x 4 = 12.",
+            "curioso": "Las tablas de multiplicar sirven mucho para resolver ejercicios rápido.",
+            "pregunta": "¿Cuánto es 3 x 4?",
+            "respuesta": "12"
         },
         "división": {
-            "explicacion": "Dividir es repartir en partes iguales. Si tienes 8 galletas y quieres darlas en 2 grupos iguales, a cada grupo le tocan 4.",
-            "ejemplo": "8 ÷ 2 = 4",
-            "dato_curioso": "La división es muy útil cuando compartimos cosas de manera justa.",
-            "pregunta": "¿Cuánto es 6 ÷ 2?",
-            "respuesta": "3"
+            "base": "La división sirve para repartir en partes iguales. Nos dice cuánto le toca a cada grupo.",
+            "ejemplo": "Si tienes 10 lápices y los repartes en 2 grupos iguales, tocan 5 en cada grupo.",
+            "curioso": "Dividimos cuando compartimos comida, fichas o tiempo.",
+            "pregunta": "¿Cuánto es 8 ÷ 2?",
+            "respuesta": "4"
         },
         "fracciones": {
-            "explicacion": "Las fracciones muestran partes de un todo. Por ejemplo, si una pizza está partida en 4 partes y comes 1, comiste un cuarto.",
-            "ejemplo": "1/2 significa una de dos partes iguales.",
-            "dato_curioso": "También usamos fracciones al medir tiempo, comida o distancia.",
-            "pregunta": "Si partes una torta en 2 partes iguales y tomas 1, ¿qué fracción tienes?",
+            "base": "Las fracciones muestran partes de un todo. Sirven para expresar cuando algo se divide en partes iguales.",
+            "ejemplo": "Si una pizza se divide en 4 partes y comes 1, comiste 1/4.",
+            "curioso": "Las fracciones aparecen en recetas, relojes, medidas y repartos.",
+            "pregunta": "Si una torta se divide en 2 partes iguales y tomas 1, ¿qué fracción es?",
             "respuesta": "1/2"
         }
     },
     "Español": {
         "sustantivos": {
-            "explicacion": "Los sustantivos son palabras que nombran personas, animales, lugares o cosas. Nos ayudan a decir de qué o de quién hablamos.",
-            "ejemplo": "Niña, perro, parque y mesa son sustantivos.",
-            "dato_curioso": "Casi todo lo que puedes ver, tocar o imaginar puede tener un sustantivo.",
-            "pregunta": "¿La palabra 'casa' es un sustantivo?",
+            "base": "Los sustantivos son palabras que nombran personas, animales, lugares o cosas.",
+            "ejemplo": "Niña, perro, escuela, parque, casa y cuaderno son sustantivos.",
+            "curioso": "Casi todo lo que vemos, tocamos o imaginamos puede tener un sustantivo.",
+            "pregunta": "¿La palabra 'mesa' es un sustantivo?",
             "respuesta": "sí"
         },
         "adjetivos": {
-            "explicacion": "Los adjetivos describen cómo es una persona, animal o cosa. Dicen si algo es grande, pequeño, bonito, rápido, alegre o colorido.",
-            "ejemplo": "En 'flor bonita', la palabra 'bonita' es un adjetivo.",
-            "dato_curioso": "Los adjetivos hacen que nuestras oraciones sean más expresivas y divertidas.",
+            "base": "Los adjetivos describen cómo es una persona, un animal, un objeto o un lugar.",
+            "ejemplo": "En 'flor hermosa', la palabra 'hermosa' describe a la flor.",
+            "curioso": "Los adjetivos hacen que los textos sean más bonitos y detallados.",
             "pregunta": "En 'perro grande', ¿cuál es el adjetivo?",
             "respuesta": "grande"
         },
         "verbos": {
-            "explicacion": "Los verbos son palabras que indican acciones o lo que sucede. Nos dicen qué hace alguien o qué está pasando.",
-            "ejemplo": "Correr, saltar, leer, jugar y cantar son verbos.",
-            "dato_curioso": "Casi todas las oraciones necesitan un verbo para tener sentido completo.",
+            "base": "Los verbos son palabras que expresan acciones, movimientos o estados.",
+            "ejemplo": "Correr, saltar, estudiar, comer y jugar son verbos.",
+            "curioso": "Sin verbos, muchas oraciones quedarían incompletas.",
             "pregunta": "¿La palabra 'leer' es un verbo?",
             "respuesta": "sí"
         },
         "sinónimos": {
-            "explicacion": "Los sinónimos son palabras diferentes que tienen un significado parecido o casi igual.",
-            "ejemplo": "Feliz y contento son sinónimos.",
-            "dato_curioso": "Usar sinónimos ayuda a no repetir siempre las mismas palabras.",
+            "base": "Los sinónimos son palabras distintas que tienen un significado parecido o muy cercano.",
+            "ejemplo": "Feliz y contento son sinónimos. Rápido y veloz también.",
+            "curioso": "Usar sinónimos evita repetir mucho la misma palabra.",
             "pregunta": "¿'rápido' y 'veloz' son sinónimos?",
             "respuesta": "sí"
         },
         "antónimos": {
-            "explicacion": "Los antónimos son palabras que significan lo contrario.",
-            "ejemplo": "Alto y bajo son antónimos.",
-            "dato_curioso": "Los antónimos nos ayudan a comparar mejor las cosas.",
+            "base": "Los antónimos son palabras que tienen significados opuestos o contrarios.",
+            "ejemplo": "Alto y bajo, frío y caliente, grande y pequeño son antónimos.",
+            "curioso": "Los antónimos ayudan a comparar mejor las cosas.",
             "pregunta": "¿'frío' es antónimo de 'caliente'?",
             "respuesta": "sí"
         }
     },
     "Ciencias": {
         "los animales": {
-            "explicacion": "Los animales son seres vivos. Nacen, crecen, respiran, se alimentan y necesitan agua y aire para vivir.",
-            "ejemplo": "El perro, el pez, la mariposa y el elefante son animales.",
-            "dato_curioso": "Algunos animales viven en la selva, otros en el mar y otros en nuestras casas.",
-            "pregunta": "¿El gato es un ser vivo?",
+            "base": "Los animales son seres vivos. Nacen, crecen, se alimentan, respiran y necesitan agua.",
+            "ejemplo": "El perro, el gato, la mariposa y el pez son animales.",
+            "curioso": "Hay animales que viven en la tierra, otros en el agua y otros vuelan.",
+            "pregunta": "¿El perro es un ser vivo?",
             "respuesta": "sí"
         },
         "las plantas": {
-            "explicacion": "Las plantas son seres vivos que necesitan agua, luz del sol, aire y tierra para crecer. Muchas plantas producen oxígeno.",
-            "ejemplo": "El árbol, la rosa y el girasol son plantas.",
-            "dato_curioso": "Las plantas son muy importantes porque ayudan a limpiar el aire.",
+            "base": "Las plantas son seres vivos que necesitan agua, luz del sol, aire y suelo para crecer.",
+            "ejemplo": "El árbol, la rosa, el pasto y el girasol son plantas.",
+            "curioso": "Las plantas ayudan a producir oxígeno y a cuidar el planeta.",
             "pregunta": "¿Qué necesitan las plantas para crecer?",
             "respuesta": "agua y luz del sol"
         },
         "el cuerpo humano": {
-            "explicacion": "El cuerpo humano tiene muchas partes que trabajan juntas. Con los ojos vemos, con los oídos escuchamos y con las piernas caminamos.",
-            "ejemplo": "El corazón bombea sangre por todo el cuerpo.",
-            "dato_curioso": "El cerebro es como el jefe del cuerpo porque envía muchas órdenes.",
+            "base": "El cuerpo humano tiene muchas partes que trabajan juntas para que podamos vivir, movernos y aprender.",
+            "ejemplo": "Con los ojos vemos, con los oídos escuchamos y con las piernas caminamos.",
+            "curioso": "El cerebro ayuda a pensar, recordar y controlar muchas funciones del cuerpo.",
             "pregunta": "¿Con qué parte del cuerpo vemos?",
             "respuesta": "ojos"
         },
         "los planetas": {
-            "explicacion": "Los planetas son grandes cuerpos que giran alrededor del Sol. La Tierra es el planeta donde vivimos.",
-            "ejemplo": "Mercurio, Venus, Tierra y Marte son algunos planetas del sistema solar.",
-            "dato_curioso": "Júpiter es uno de los planetas más grandes del sistema solar.",
+            "base": "Los planetas son grandes cuerpos del espacio que giran alrededor del Sol.",
+            "ejemplo": "Mercurio, Venus, Tierra y Marte son planetas del sistema solar.",
+            "curioso": "La Tierra es el planeta donde vivimos y tiene agua, aire y vida.",
             "pregunta": "¿Cómo se llama el planeta donde vivimos?",
             "respuesta": "tierra"
         },
         "el agua": {
-            "explicacion": "El agua es muy importante para la vida. La usamos para beber, cocinar, bañarnos y regar las plantas.",
-            "ejemplo": "El agua puede estar en ríos, lagos, mares y nubes.",
-            "dato_curioso": "Nuestro cuerpo también tiene mucha agua.",
+            "base": "El agua es esencial para la vida. La necesitamos para beber, cocinar, limpiar y regar.",
+            "ejemplo": "El agua está en ríos, lagos, mares, lluvia y nubes.",
+            "curioso": "Gran parte del cuerpo humano también está formada por agua.",
             "pregunta": "¿El agua es importante para vivir?",
             "respuesta": "sí"
         }
     },
     "Geografía": {
         "continentes": {
-            "explicacion": "Los continentes son grandes porciones de tierra del planeta Tierra. Cada continente tiene muchos países, paisajes y culturas.",
+            "base": "Los continentes son grandes extensiones de tierra en el planeta.",
             "ejemplo": "América, África, Asia, Europa y Oceanía son continentes.",
-            "dato_curioso": "La Antártida es el continente más frío del planeta.",
+            "curioso": "Cada continente tiene distintos climas, animales, idiomas y culturas.",
             "pregunta": "¿América es un continente?",
             "respuesta": "sí"
         },
         "mapas": {
-            "explicacion": "Los mapas representan lugares. Sirven para ubicar países, ciudades, ríos, montañas y caminos.",
-            "ejemplo": "Un mapa de Colombia muestra sus departamentos, regiones y ciudades importantes.",
-            "dato_curioso": "Los mapas también pueden mostrar clima, relieve y mares.",
+            "base": "Los mapas representan lugares y nos ayudan a ubicarnos.",
+            "ejemplo": "En un mapa podemos ver países, ciudades, montañas, ríos y mares.",
+            "curioso": "Hay mapas físicos, políticos, climáticos y muchos otros tipos.",
             "pregunta": "¿Para qué sirve un mapa?",
             "respuesta": "para mostrar lugares"
         },
         "colombia": {
-            "explicacion": "Colombia es un país de América del Sur. Tiene montañas, selvas, ríos, dos océanos y muchas regiones naturales.",
+            "base": "Colombia es un país de América del Sur con gran diversidad de paisajes, culturas y regiones.",
             "ejemplo": "Bogotá es la capital de Colombia.",
-            "dato_curioso": "Colombia es conocida por su gran variedad de animales, plantas y paisajes.",
+            "curioso": "Colombia tiene costas en el mar Caribe y en el océano Pacífico.",
             "pregunta": "¿Cuál es la capital de Colombia?",
             "respuesta": "bogotá"
         },
         "regiones naturales": {
-            "explicacion": "Las regiones naturales son zonas con características parecidas en clima, paisaje, vegetación y relieve.",
-            "ejemplo": "En Colombia existen regiones como la Andina, Caribe, Pacífica, Orinoquía, Amazonía e Insular.",
-            "dato_curioso": "Cada región tiene comidas, costumbres y paisajes diferentes.",
+            "base": "Las regiones naturales son zonas que comparten características parecidas como clima, relieve, vegetación y fauna.",
+            "ejemplo": "En Colombia están la región Andina, Caribe, Pacífica, Amazonía, Orinoquía e Insular.",
+            "curioso": "Cada región tiene paisajes y costumbres propias.",
             "pregunta": "¿La región Caribe es una región natural de Colombia?",
             "respuesta": "sí"
         },
         "océanos": {
-            "explicacion": "Los océanos son enormes masas de agua salada que cubren gran parte de la Tierra.",
-            "ejemplo": "El océano Pacífico y el océano Atlántico son muy conocidos.",
-            "dato_curioso": "En el fondo del océano viven muchísimos seres vivos.",
+            "base": "Los océanos son enormes masas de agua salada que cubren gran parte del planeta Tierra.",
+            "ejemplo": "El océano Pacífico y el Atlántico son dos océanos muy importantes.",
+            "curioso": "Dentro de los océanos viven miles de especies marinas.",
             "pregunta": "¿Los océanos tienen agua salada?",
             "respuesta": "sí"
         }
@@ -289,24 +290,75 @@ contenidos = {
 }
 
 mensajes_motivadores = [
-    "🌟 ¡Excelente trabajo! Sigue así.",
-    "🎉 ¡Muy bien! Cada vez aprendes más.",
-    "🚀 ¡Fantástico! Vas como un súper explorador del conocimiento.",
-    "👏 ¡Lo hiciste muy bien! Estoy orgulloso de tu esfuerzo.",
-    "🧠 ¡Tu mente está creciendo mucho con cada respuesta!",
-    "💡 ¡Qué buena respuesta! Se nota que estás poniendo atención."
+    "🌟 ¡Excelente trabajo! Sigue aprendiendo con alegría.",
+    "🎉 ¡Muy bien! Lo estás haciendo increíble.",
+    "🚀 ¡Fantástico! Vas avanzando como una estrella del aprendizaje.",
+    "👏 ¡Muy buena respuesta! Se nota tu esfuerzo.",
+    "🧠 ¡Estás aprendiendo muchísimo!",
+    "💡 ¡Sigue así! Cada intento te hace más fuerte."
 ]
 
 mensajes_error = [
-    "💪 No pasa nada. Equivocarse también ayuda a aprender.",
-    "🌈 Vamos de nuevo. Tú puedes hacerlo.",
-    "📚 Cada intento te hace más fuerte y más inteligente.",
-    "✨ Inténtalo otra vez. Aprender es un camino paso a paso."
+    "💪 No pasa nada. Equivocarse también enseña.",
+    "🌈 Inténtalo otra vez. Tú puedes.",
+    "📚 Aprender es practicar paso a paso.",
+    "✨ Vas bien. Solo necesitamos otro intento."
 ]
 
-# =========================
+# =====================================
+# FUNCIONES
+# =====================================
+def generar_explicacion_detallada(materia: str, tema: str, edad: str, info: dict) -> str:
+    base = info["base"]
+
+    if edad == "6-7 años":
+        return (
+            f"{base} "
+            f"Imagina que estás jugando o mirando cosas a tu alrededor. "
+            f"Cuando aprendes sobre {tema}, puedes entender mejor lo que pasa en la escuela y en la vida diaria. "
+            f"Vamos despacito: primero observamos, luego pensamos y después practicamos. "
+            f"Lo importante es entender la idea principal con palabras fáciles. "
+            f"Si algo parece difícil al principio, no te preocupes, porque aprender toma tiempo y está bien repetir. "
+            f"Este tema se puede descubrir con ejemplos simples, como objetos, juegos, dibujos y situaciones cotidianas. "
+            f"Cuando comprendes una idea pequeña, luego puedes entender una idea más grande. "
+            f"Por eso aprender paso a paso es una gran estrategia."
+        )
+
+    if edad == "8-9 años":
+        return (
+            f"{base} "
+            f"Este tema es importante porque aparece en muchas situaciones de la vida diaria y también en la escuela. "
+            f"Aprender {tema} te ayuda a pensar mejor, describir, resolver problemas o comprender el mundo, según la materia que elegiste. "
+            f"Una buena forma de aprender es mirar un ejemplo, descubrir qué pasa y luego intentarlo por tu cuenta. "
+            f"Cuando practicas varias veces, tu mente empieza a reconocer patrones y todo se vuelve más claro. "
+            f"No se trata solo de memorizar, sino de entender por qué sucede cada cosa. "
+            f"Si observas con atención, verás que este tema está en libros, conversaciones, juegos, naturaleza y muchas actividades cotidianas. "
+            f"Cuanto más practiques, más seguridad tendrás al responder preguntas y explicar con tus propias palabras."
+        )
+
+    return (
+        f"{base} "
+        f"Este tema es importante porque desarrolla comprensión, análisis y capacidad para relacionar ideas. "
+        f"Aprender {tema} no solo sirve para contestar preguntas, sino también para interpretar mejor situaciones reales, resolver ejercicios y expresar conocimientos con mayor claridad. "
+        f"Cuando estudias un tema con atención, puedes identificar sus características, compararlo con otros temas y usarlo en contextos distintos. "
+        f"Es muy útil observar ejemplos, descubrir reglas o patrones y luego practicar con tus propias respuestas. "
+        f"Además, comprender en profundidad ayuda a recordar por más tiempo y a construir una base sólida para temas más avanzados. "
+        f"Por eso es importante leer con calma, pensar en lo que significa cada idea y tratar de explicarla con palabras propias. "
+        f"Así el aprendizaje se vuelve más completo, más consciente y mucho más útil."
+    )
+
+
+def generar_ejemplo_detallado(edad: str, ejemplo: str) -> str:
+    if edad == "6-7 años":
+        return f"{ejemplo} Este ejemplo usa una situación sencilla para que puedas imaginarlo fácilmente."
+    if edad == "8-9 años":
+        return f"{ejemplo} Observa qué pasa paso a paso y piensa por qué esa respuesta tiene sentido."
+    return f"{ejemplo} Analiza bien el ejemplo y trata de descubrir la regla o idea principal que lo explica."
+
+
+# =====================================
 # ESTADO
-# =========================
+# =====================================
 if "tema_actual" not in st.session_state:
     st.session_state.tema_actual = None
 
@@ -322,27 +374,27 @@ if "respuestas_correctas" not in st.session_state:
 if "intentos" not in st.session_state:
     st.session_state.intentos = 0
 
-# =========================
+# =====================================
 # ENCABEZADO
-# =========================
+# =====================================
 st.markdown("""
 <div style='text-align:center; padding-top: 8px;'>
-    <div style='font-size: 3rem;'>🌈📚✨</div>
-    <div class='titulo-principal'>Tutor Infantil Interactivo</div>
-    <div class='subtitulo-principal'>
-        Aprende jugando con explicaciones fáciles, ejemplos, datos curiosos y preguntas divertidas.
+    <div style='font-size: 3rem;'>🌈🧸📚✨</div>
+    <div class='main-title'>Tutor Infantil Interactivo</div>
+    <div class='subtitle'>
+        Aprende jugando con explicaciones más completas, ejemplos, datos curiosos y retos divertidos.
     </div>
 </div>
 """, unsafe_allow_html=True)
 
-# =========================
-# PANEL SUPERIOR
-# =========================
+# =====================================
+# MÉTRICAS
+# =====================================
 col1, col2 = st.columns(2)
 with col1:
     st.metric("⭐ Puntaje", st.session_state.puntos)
 with col2:
-    st.metric("✅ Respuestas correctas", st.session_state.respuestas_correctas)
+    st.metric("✅ Correctas", st.session_state.respuestas_correctas)
 
 if st.session_state.intentos > 0:
     progreso = st.session_state.respuestas_correctas / st.session_state.intentos
@@ -351,71 +403,62 @@ else:
 
 st.progress(progreso, text="📈 Tu progreso de aprendizaje")
 
-# =========================
+# =====================================
 # SELECCIÓN
-# =========================
-st.markdown("<div class='mini-tarjeta'><strong>👩‍🏫 Tutor del día:</strong> Profe Estrella 🌟</div>", unsafe_allow_html=True)
+# =====================================
+st.markdown("<div class='info-chip'>👩‍🏫 Tu guía de hoy es Profe Estrella 🌟</div>", unsafe_allow_html=True)
 
-materia = st.selectbox(
-    "📚 Elige una materia:",
-    list(contenidos.keys())
-)
+materia = st.selectbox("📚 Elige una materia:", list(contenidos.keys()))
+tema = st.selectbox("✏️ Elige un tema:", list(contenidos[materia].keys()))
+edad = st.selectbox("🧒 Edad aproximada del niño:", ["6-7 años", "8-9 años", "10-12 años"])
 
-tema = st.selectbox(
-    "✏️ Elige un tema:",
-    list(contenidos[materia].keys())
-)
-
-edad = st.selectbox(
-    "🧒 Edad aproximada del niño:",
-    ["6-7 años", "8-9 años", "10-12 años"]
-)
-
-# Ajuste suave por edad
-mensaje_edad = {
-    "6-7 años": "🧸 Aprenderemos con palabras fáciles y pasos cortos.",
-    "8-9 años": "🌟 Aprenderemos con ejemplos claros y preguntas divertidas.",
-    "10-12 años": "📘 Aprenderemos con un poco más de detalle y comprensión."
+mensajes_edad = {
+    "6-7 años": "🧸 Explicaciones con palabras más fáciles y pasos pequeños.",
+    "8-9 años": "🌟 Explicaciones claras con más detalles y ejemplos útiles.",
+    "10-12 años": "📘 Explicaciones más completas para comprender mejor el tema."
 }
 
 st.markdown(
-    f"<div class='mini-tarjeta'><strong>{mensaje_edad[edad]}</strong></div>",
+    f"<div class='info-chip'>{mensajes_edad[edad]}</div>",
     unsafe_allow_html=True
 )
 
-# =========================
-# BOTÓN PRINCIPAL
-# =========================
+# =====================================
+# EXPLORAR
+# =====================================
 if st.button("✨ Explorar tema"):
     info = contenidos[materia][tema]
     st.session_state.tema_actual = info
     st.session_state.respuesta_correcta = info["respuesta"]
 
-# =========================
-# MOSTRAR CONTENIDO
-# =========================
+# =====================================
+# CONTENIDO
+# =====================================
 if st.session_state.tema_actual:
     info = st.session_state.tema_actual
 
+    explicacion_larga = generar_explicacion_detallada(materia, tema, edad, info)
+    ejemplo_largo = generar_ejemplo_detallado(edad, info["ejemplo"])
+
     st.markdown(f"""
-    <div class="tarjeta">
+    <div class="card">
         <h3>🌟 Explicación</h3>
-        <p>{info["explicacion"]}</p>
+        <p>{explicacion_larga}</p>
 
         <h3>📌 Ejemplo</h3>
-        <p>{info["ejemplo"]}</p>
+        <p>{ejemplo_largo}</p>
 
         <h3>💡 Dato curioso</h3>
-        <p>{info["dato_curioso"]}</p>
+        <p>{info["curioso"]}</p>
 
-        <h3>❓ Pregunta</h3>
+        <h3>🎯 Pregunta para pensar</h3>
         <p>{info["pregunta"]}</p>
     </div>
     """, unsafe_allow_html=True)
 
     respuesta_nino = st.text_input("💬 Escribe tu respuesta:")
 
-    if st.button("🎯 Revisar mi respuesta"):
+    if st.button("🎈 Revisar mi respuesta"):
         if respuesta_nino.strip() == "":
             st.warning("Por favor, escribe una respuesta antes de revisar.")
         else:
@@ -424,43 +467,31 @@ if st.session_state.tema_actual:
             respuesta_usuario = respuesta_nino.strip().lower()
             respuesta_correcta = st.session_state.respuesta_correcta.strip().lower()
 
-            if (
-                respuesta_correcta in respuesta_usuario
-                or respuesta_usuario in respuesta_correcta
-            ):
+            if respuesta_correcta in respuesta_usuario or respuesta_usuario in respuesta_correcta:
                 st.success("✅ ¡Respuesta correcta!")
                 st.success(random.choice(mensajes_motivadores))
                 st.session_state.puntos += 10
                 st.session_state.respuestas_correctas += 1
             else:
-                st.error("❌ No exactamente. Intenta de nuevo.")
-                st.info(f"✅ Respuesta esperada: {st.session_state.respuesta_correcta}")
+                st.error("❌ Todavía no es la respuesta esperada.")
+                st.info(f"Respuesta esperada: {st.session_state.respuesta_correcta}")
                 st.info(random.choice(mensajes_error))
 
-# =========================
+# =====================================
 # RECOMPENSAS
-# =========================
-if st.session_state.puntos >= 10 and st.session_state.puntos < 30:
-    st.markdown(
-        "<div class='bloque-puntaje'>🥉 ¡Ganaste tu primera medalla de aprendizaje!</div>",
-        unsafe_allow_html=True
-    )
-elif st.session_state.puntos >= 30 and st.session_state.puntos < 60:
-    st.markdown(
-        "<div class='bloque-puntaje'>🥈 ¡Vas excelente! Ya tienes una medalla plateada.</div>",
-        unsafe_allow_html=True
-    )
+# =====================================
+if 10 <= st.session_state.puntos < 30:
+    st.markdown("<div class='reward-box'>🥉 ¡Ganaste tu primera medalla de aprendizaje!</div>", unsafe_allow_html=True)
+elif 30 <= st.session_state.puntos < 60:
+    st.markdown("<div class='reward-box'>🥈 ¡Muy bien! Ya tienes una medalla plateada.</div>", unsafe_allow_html=True)
 elif st.session_state.puntos >= 60:
-    st.markdown(
-        "<div class='bloque-puntaje'>🥇 ¡Increíble! Eres un campeón del conocimiento.</div>",
-        unsafe_allow_html=True
-    )
+    st.markdown("<div class='reward-box'>🥇 ¡Increíble! Eres un campeón del conocimiento.</div>", unsafe_allow_html=True)
 
-# =========================
+# =====================================
 # PIE
-# =========================
+# =====================================
 st.markdown("""
-<div class='footer-bonito'>
-    Hecho con cariño para aprender jugando 🌈✨📚
+<div class='footer-box'>
+    Hecho con cariño para aprender jugando 🌈✨🧸📚
 </div>
 """, unsafe_allow_html=True)
